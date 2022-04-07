@@ -1,5 +1,5 @@
 from cs103 import *
-import matplotlib.pyplot as pyplot
+import matplotlib.pyplot as plt
 from typing import NamedTuple, List, Optional
 import csv
 
@@ -49,7 +49,6 @@ Sapphire = int #range [1-300]
 S1 = 25
 S2 = 27
 
-
 @typecheck
 def fn_for_sapphire (s: Sapphire) -> ...:
     return ...(s) #template based on Atomic non-distinct 
@@ -64,7 +63,37 @@ LOS1 = [25, 27]
 def fn_for_los(los: List[Sapphire]) -> ...:
     return ...(los)
 
-AverageRatio =
+AverageRatio = float 
+#Interp. The Average Ratio of a Pokemon type 
+
+AR_Bug = 14.791007869495925
+AR_Ground = 10.757096632360673
+
+LOAR0 = []
+LOAR1 = [AR_Bug, AR_Ground]
+
+@typecheck
+def fn_for_average_ratio (ar: AverageRatio) -> ...:
+    return ...(ar) #template based on Atomic non-distinct 
+
+#List[AverageRatio]
+#interp. A list of AverageRatio
+
+LOARR0 = []
+LOARR1 = [AR_Bug, AR_Ground]
+
+@typecheck
+def fn_for_loarr(loarr: List[AverageRatio]) -> ...:
+    return ...(loarr)
+
+Type = str
+#Interp. 
+
+LOT0 = []
+LOTT1 = ["bug", "fairy"]
+LOTT_ALL = ['bug','dark','dragon','electric','fairy','fighting','fire','flying','ghost','grass','ground','ice','normal','poison','psychic','rock','steel','water']
+
+
 
 ###########
 # Functions
@@ -110,10 +139,19 @@ def read_sapphire(filename: str) -> List[Sapphire]:
             
     return los
 
-###
+#Following functions plot the bar graph 
 
 
+    
 #Following functions are for attack/defense ratio calculation
+
+@typecheck
+def all_ratio(lot: List[Type]) -> List[AverageRatio]:
+    """
+    Returns a list of all average ratios
+    """
+    #Return LOAR0 #stub
+    #Template based on 
 
 @typecheck
 def avg_ratio_typed(lop: List[Pokemon], t: str) -> AverageRatio:
@@ -159,6 +197,35 @@ def num_of_pokemons_per_type(lop: List[Pokemon], t: str) -> int:
     
     return len(filter_type(lop, t))
 
+
+#Following functions create a list of all Pokemon Types (for graphing/x-axis)
+
+@typecheck
+def type_list(lot: List[Type]) -> List[Type]:
+    """
+    Returns a list of Pokemon types, repeated once 
+    """
+    #return LOT0 #stub
+    #Template based on List[Type]
+    acc = [] #type: List[Type]
+    
+    for t in lot:
+        if t not in acc and t is not None and t != "":
+            acc.append(t)
+    return sorted(acc)
+
+@typecheck
+def all_types(lop: List[Pokemon]) -> List[Type]:
+    """
+    Returns a list of types of all Pokemons
+    """
+    #return LOC0 #stub
+    #Template based on List[Pokemon], with an additional parameter t
+    acc = [] #type: List[Type]
+    for p in lop:
+            acc.append(p.type1) 
+            acc.append(p.type2)
+    return acc
 
 #Following functions filter for Pokemon Type 
 
@@ -211,4 +278,42 @@ def id_check(n1: Pokemon, n2: int) -> bool:
     #Template based on Atomic distinct 
     return n1.pokedex_number == n2
 
-avg_ratio_typed(filtered(read("pokemon.csv"), read_sapphire("sapphire.csv")), "bug")
+#Begin testing
+start_testing()
+
+# Examples and tests for read
+expect(read("pokemon_test1.csv"),[Pokemon(pokedex_number=1, name='Bulbasaur', attack=49, defense=49, type1='grass', type2='poison'),
+ Pokemon(pokedex_number=2, name='Ivysaur', attack=62, defense=63, type1='grass', type2='poison')])
+expect(read("pokemon_test2.csv"),[Pokemon(pokedex_number=25, name='Pikachu', attack=55, defense=40, type1='electric', type2=''),
+ Pokemon(pokedex_number=26, name='Raichu', attack=85, defense=50, type1='electric', type2='electric')])
+
+# Examples and tests for read_sapphire
+expect(read_sapphire("sapphire_test1.csv"), [252, 253, 254])
+expect(read_sapphire("sapphire_test2.csv"),[274, 275, 276, 277])
+
+# Examples and tests for avg_ratio_typed
+#expect(..., ...)
+
+# Examples and tests for sum_ratio_typed
+#expect(..., ...)
+
+# Examples and tests for ratio
+#expect(..., ...)
+
+# Examples and tests for num_of_pokemons_per_type
+#expect(..., ...)
+
+# Examples and tests for filter_type
+#expect(..., ...)
+
+# Examples and tests for in_type
+#expect(..., ...)
+
+# Examples and tests for filtered
+#expect(..., ...)
+
+# Examples and tests for id_check
+#expect(..., ...)
+
+# show testing summary
+summary()
